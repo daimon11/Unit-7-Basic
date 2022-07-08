@@ -1,30 +1,30 @@
 const randomNum = Math.round(Math.random() * 100);
 console.log(randomNum);
 
+let userNumber = prompt('Привет! Я загадал число от 1 до 100, попробуй отгадать:', '');
+console.log(userNumber);
+console.log(typeof (userNumber));
+
 const guessNumber = (randomNum) => {
-  let userNumber = prompt('Привет! Я загадал число, попробуй отгадать:', '');
   for (i = 0; i < randomNum; i++) {
-    if (isNaN(userNumber) || userNumber === "" || userNumber === 0) {
-      alert('Некоректные данные');
-      console.log(userNumber);
-      break;
+    if (!Number.isNaN(userNumber) && userNumber > 0 && userNumber !== null) {
+      if (userNumber > randomNum) {
+        userNumber = prompt('Многовато, попробуй меньше:', '');
+        i++;
+      } else if (userNumber < randomNum) {
+        userNumber = prompt('Маловато, попробуй больше:', '');
+        i++;
+      } else {
+        alert(`Верно, это число ${randomNum}!`);
+        break;
+      }
     } else if (userNumber === null) {
       break;
-    } else if (userNumber > randomNum && userNumber !== null) {
-      userNumber = +prompt('Меньше!', '');
-      console.log(userNumber);
-    } else if (userNumber < randomNum && userNumber !== null) {
-      userNumber = +prompt('Больше!', '');
-      console.log(userNumber);
-    } else if (userNumber === randomNum) {
-      userNumber = alert('Точно!');
-      console.log(userNumber);
-      break;
     } else {
-      alert('Неверное решение');
-      break;
+      userNumber = prompt('Введи число!', '');
+      i++
     }
   }
 }
-
 guessNumber(randomNum);
+

@@ -1,27 +1,31 @@
-const randomNumber = (a, n, m, z) => {
-  let arr1 = [];
-  let min = Math.min(n, m);
-  let max = Math.max(n, m);
-  let random = 0;
-  for (let i = 0; i < a; i++) {
-    if (z === 'even') {
-      random = Math.round(min - 0.5 + Math.random() * (max - min + 1))
-      if (random % 2 !== 0) {
-        arr1.push(random);
-      } else {
-        arr1.push(random - 1);
-      };
-    };
-    if (z === 'odd') {
-      random = Math.round(min - 0.5 + Math.random() * (max - min + 1));
-      if (random % 2 === 0) {
-        arr1.push(random);
-      } else {
-        arr1.push(random - 1);
-      };
-    };
-  }
-  return arr1;
-}
+const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
-console.log(randomNumber(8, -100, 33, 'odd'));
+function randomOdd(a, n1, n2, z) {
+  let arr = [];
+  let sum = 0;
+  let min = Math.min(n1, n2);
+  let max = Math.max(n1, n2);
+  if (z === 'odd') {
+    min = min + !(min % 2);
+    max = max - !(max % 2);
+  } else if (z === 'even') {
+    min = min - (min % 2);
+    max = max - (max % 2);
+  } 
+  for (let i = 0; i < a; i++) {
+    sum = min + random(0, (max - min) / 2) * 2;
+    if (sum > max) {
+      sum -= 1;
+    } else if (sum < min) {
+      sum += 1;
+    }
+    arr.push(sum);
+  }
+    return arr;
+}
+console.log(randomOdd(10, -30, -31, 'odd'));
+console.log(randomOdd(10, -21, -20, 'even'));
+console.log(randomOdd(10, 30, 31, 'odd'));
+console.log(randomOdd(10, 21, 20, 'even'));
+console.log(randomOdd(10, 30, 31));
+console.log(randomOdd(10, 21, 20));
